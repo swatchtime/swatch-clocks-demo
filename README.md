@@ -1,2 +1,23 @@
-# swatch-clocks-demo
-A demo app for the the Swatch Clocks library that showcases the various styles and allows you to customize parameters.
+# Embeddable Web Site Clocks
+
+A collection of Swatch Internet Time clocks you can embed on your web site.
+
+## Screenshots
+
+## Get your own web site clock
+
+- Link to demo site
+
+## Include the CSS / JS files in your HTML document
+
+## Basic Example
+
+## Advanced Example
+
+## Getting Help
+
+## Developer Info
+
+## License
+
+[MIT](LICENSE)
