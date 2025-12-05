@@ -13,22 +13,59 @@ const page = localStorage.getItem('page');
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
 
-// Full HTML template used for the "library code" textarea. We insert
-// the embed snippet into the %%EMBED%% placeholder when populating
-// the code view so users can save the text as a complete .html file.
-const librarycodeHtml = `<!doctype html>
+// CDN constants (single source of truth for demo)
+const CLOCKS_CDN_VER = '0.9.3';
+const CLOCKS_CDN_BASE = `https://cdn.jsdelivr.net/npm/@swatchtime/clocks@${CLOCKS_CDN_VER}/dist`;
+const CLOCKS_CSS = `${CLOCKS_CDN_BASE}/clocks.css`;
+const CLOCKS_JS = `${CLOCKS_CDN_BASE}/clocks.js`;
+const CLOCKS_MIN_JS = `${CLOCKS_CDN_BASE}/clocks.min.js`;
+const CLOCKS_UMD_CSS = `${CLOCKS_CDN_BASE}/clocks.umd.css`;
+const CLOCKS_UMD_JS = `${CLOCKS_CDN_BASE}/clocks.umd.js`;
+
+// Load the library and styles from the CDN (tries canonical then fallback)
+(function(){
+  function loadCss(href){
+    var l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = href;
+    l.onerror = function(){
+      if (href.indexOf('clocks.css') !== -1) {
+        loadCss(CLOCKS_UMD_CSS);
+      }
+    };
+    document.head.appendChild(l);
+  }
+  loadCss(CLOCKS_CSS);
+
+  function loadScript(src, fallback){
+    var s = document.createElement('script');
+    s.src = src;
+    s.async = false;
+    s.onerror = function(){ if (fallback) loadScript(fallback); };
+    document.head.appendChild(s);
+  }
+  // Try canonical JS first, then a minified fallback for faster load
+  loadScript(CLOCKS_JS, CLOCKS_MIN_JS);
+})();
+
+// Full HTML generator used for the "library code" textarea. We insert
+// the embed snippet passed to this function so users can save the text
+// as a complete .html file that references the CDN.
+function buildLibraryCodeHtml(embed) {
+  return `<!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
     <title>Swatch Internet Time</title>
-    <link href="clocks@0.0.1/clocks.css" rel="stylesheet">
-    <script src="clocks@0.0.1/clocks.js"></script>
+    <link href="${CLOCKS_CSS}" rel="stylesheet">
+    <script src="${CLOCKS_MIN_JS}"></script>
   </head>
   <body>
     <!-- Your clock embed code: -->
-    %%EMBED%%
+    ${embed}
   </body>
 </html>`;
+}
 
 // -------------------------------------------
 // SPA navigation helpers
@@ -832,7 +869,7 @@ function setupCodeView(params = {}) {
     const targetStyle = presetExists(styleParam) ? styleParam : 'rectangle-small';
     const snippet = `<div class=\"internetTime\" data-style=\"${targetStyle}\"></div>`;
     if (codeArea) codeArea.value = snippet;
-    if (libArea) libArea.value = librarycodeHtml.replace('%%EMBED%%', snippet);
+    if (libArea) libArea.value = buildLibraryCodeHtml(snippet);
     if (previewRoot) {
       previewRoot.innerHTML = '';
       previewRoot.innerHTML = `<div class="internetTime" data-style="${targetStyle}"></div>`;
@@ -871,7 +908,7 @@ function setupCodeView(params = {}) {
       const target = presetExists(baseStyle) ? baseStyle : 'rectangle-small';
       const snippet = `<div class=\"internetTime\" data-style=\"${target}\"></div>`;
       if (codeArea) codeArea.value = snippet;
-      if (libArea) libArea.value = librarycodeHtml.replace('%%EMBED%%', snippet);
+      if (libArea) libArea.value = buildLibraryCodeHtml(snippet);
       if (previewRoot) {
         previewRoot.innerHTML = '';
         previewRoot.innerHTML = `<div class="internetTime" data-style="${target}"></div>`;
@@ -907,7 +944,7 @@ function setupCodeView(params = {}) {
   if (!draft) {
     const msg = '<!-- No custom draft found. Open a preset and customize it first. -->\n<div class="internetTime" data-style="rectangle-small"></div>';
     if (codeArea) codeArea.value = msg;
-    if (libArea) libArea.value = librarycodeHtml.replace('%%EMBED%%', '<div class="internetTime" data-style="rectangle-small"></div>');
+    if (libArea) libArea.value = buildLibraryCodeHtml('<div class="internetTime" data-style="rectangle-small"></div>');
     if (previewRoot) { previewRoot.innerHTML = ''; previewRoot.innerHTML = `<div class="internetTime" data-style="rectangle-small"></div>`; try { window.initInternetTime(previewRoot); } catch (e) { /* ignore */ } }
     return;
   }
@@ -916,7 +953,7 @@ function setupCodeView(params = {}) {
   const baseName = baseStyle || draft._baseStyle || null;
   const snippet = generateFullMarkupFromDraft(baseName, draft);
   if (codeArea) codeArea.value = snippet;
-  if (libArea) libArea.value = librarycodeHtml.replace('%%EMBED%%', snippet);
+  if (libArea) libArea.value = buildLibraryCodeHtml(snippet);
   if (previewRoot) {
     previewRoot.innerHTML = '';
     try { renderPreviewFor('custom', draft); const pr = document.getElementById('code-preview'); if (pr) { /* renderPreviewFor injected .internetTime into previewRoot via id 'preview' earlier; we need to insert into previewRoot instead */ const html = `<div class=\"internetTime\" data-style=\"custom\"></div>`; pr.innerHTML = html; applyOptionsToElement(pr.querySelector('.internetTime'), (typeof window.getPresetNormalized === 'function') ? window.getPresetNormalized(draft) : {}, draft); try { window.initInternetTime(pr); } catch (e) { /* ignore */ } } } catch (e) { previewRoot.innerHTML = '<!-- preview failed -->'; }
@@ -976,4 +1013,25 @@ document.addEventListener('DOMContentLoaded', () => {
       if (trigger && typeof trigger.focus === 'function') trigger.focus();
     });
   });
+
+  // Update the Help modal example snippet to use the demo's CDN constants
+  try {
+    const helpModal = document.getElementById('showHelpModal');
+    if (helpModal) {
+      // If we added a placeholder element, populate it directly
+      const helpPlaceholder = document.getElementById('help-cdn-snippet');
+      if (helpPlaceholder) {
+        helpPlaceholder.innerHTML = `<code>&lt;head&gt;</code><br>&nbsp;&nbsp;<code>&lt;link href="${CLOCKS_CSS}" rel="stylesheet"&gt;</code><br>&nbsp;&nbsp;<code>&lt;script src="${CLOCKS_MIN_JS}"&gt;&lt;/script&gt;</code><br><code>&lt;/head&gt;</code>`;
+      }
+      // Find the paragraph that contains the example CDN links and replace it
+      const ps = helpModal.querySelectorAll('p');
+      ps.forEach(p => {
+        try {
+          if (p.innerHTML && p.innerHTML.indexOf('@swatchtime/clocks') !== -1) {
+            p.innerHTML = `<code>&lt;head&gt;</code><br>&nbsp;&nbsp;<code>&lt;link href="${CLOCKS_CSS}" rel="stylesheet"&gt;</code><br>&nbsp;&nbsp;<code>&lt;script src="${CLOCKS_MIN_JS}"&gt;&lt;/script&gt;</code><br><code>&lt;/head&gt;</code>`;
+          }
+        } catch (e) { /* ignore individual paragraph errors */ }
+      });
+    }
+  } catch (e) { /* ignore help modal update errors */ }
 });

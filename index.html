@@ -8,9 +8,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <!-- Bootstrap Icons -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-        <!-- Swatch Clocks (local vendor copy)-->
-        <link href="vendor/clocks.css" rel="stylesheet">
-        <script src="vendor/clocks.js"></script>
+                <!-- Swatch Clocks loader moved to `clockdemo.js` (centralized CDN constants) -->
         <!-- Demo specific styles -->
         <link href="clockdemo.css" rel="stylesheet">
     </head>
@@ -734,12 +732,7 @@
 
                         <h3>Adding Javascript and CSS Links</h3>
                         <p>In order for the embeddable clock to work properly, you have to load the library in the <code>&lt;head&gt;</code> section of your HTML document. When you go to the Get Code page you'll see the code you need to insert into your document. This is the code which loads the library and the styles for the clocks. Without this code, your clock embed code will not look or work properly. There are two lines that you need to insert: a javascript file (.js) and a stylesheet file (.css). The easiest way to include this code is to use the <a href="https://www.cloudflare.com/learning/cdn/what-is-a-cdn/" target="_blank" rel="noopener noreferrer">CDN</a> links. These load the files from an external service and make the library and styles available without having to download anything. If you prefer, you can also download the clocks library and upload the files to your own server. Using this method you can have a local installation which does not rely on an external CDN provider. The links to the CDN will look something like this:</p>
-                        <p>
-                            <code>&lt;head&gt;</code><br>
-                            &nbsp;&nbsp;<code>&lt;link href="https://cdn.jsdelivr.net/npm/@swatchtime/clocks@1.0.0/dist/clocks.css" rel="stylesheet"&gt;</code><br>
-                            &nbsp;&nbsp;<code>&lt;script src="https://cdn.jsdelivr.net/npm/@swatchtime/clocks@1.0.0/dist/clocks.min.js"&gt;&lt;/script&gt;</code><br>
-                            <code>&lt;/head&gt;</code>
-                        </p>
+                        <p id="help-cdn-snippet"></p>
                         
                         <h3>Creating Your Own Custom Clock Styles</h3>
                         <p>You can also create your own custom clock styles by passing custom data-* attributes tags to the clocks library. Here is a list of all the custom data-* attributes that the library accepts, what they do, their types and typical defaults. If you want to customize an existing style you can set the data-style attribute to the name of the style and then include the data-* attribute tags of the parameters you want to override.</p>
