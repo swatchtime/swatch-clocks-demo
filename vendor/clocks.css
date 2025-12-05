@@ -1,0 +1,97 @@
+
+.clockframe {
+  border: 1px solid black;
+  background-color: lightslategray;
+  display: inline-grid;
+  place-items: center;
+  box-sizing: border-box;
+  padding: 2px 3px;
+}
+
+.clock {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  gap: 6px;
+  width: -moz-fit-content;
+  width: fit-content;
+  box-sizing: border-box;
+}
+
+/* Ensure each child inside .clock is vertically centered; this avoids
+   baseline shifts from inline elements (especially visible in very
+   small clocks). */
+.clock > * {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timewrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}
+
+.signtime {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}
+
+.clockframe .logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clockframe .logo svg { display: block; height: auto; }
+
+.clock .atsign,
+.clock .time,
+.clock .centibeats,
+.clock .beats {
+  display: inline-block;
+}
+
+.clock .atsign { margin-right: 0; }
+.clock .beats { margin-left: 6px; }
+
+.clock .time {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Stacked layout for circle/square frames */
+.clockframe--stacked .clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.15em;
+}
+
+/* Logo scales with font-size context; keep it block-level */
+.clockframe--stacked .logo svg { height: 1em; width: auto; display: block; }
+
+/* Keep the at-sign + time on one line */
+.clockframe--stacked .signtime { display: inline-flex; flex-direction: row; align-items: baseline; gap: 0.05em; }
+
+/* Reset left margins intended for horizontal layout */
+.clockframe--stacked .atsign,
+.clockframe--stacked .beats {
+  margin-left: 0 !important;
+}
+
+/* Beats label sits below time and is slightly smaller */
+.clockframe--stacked .beats {
+  display: block;
+  font-size: 0.75em;
+  margin-top: 0.15em;
+  line-height: 1;
+}
+
+/* Ensure centibeats stays inline with time */
+.clockframe--stacked .timewrap { display: inline-flex; align-items: baseline; gap: 0.05em; }

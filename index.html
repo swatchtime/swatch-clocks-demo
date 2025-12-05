@@ -1,0 +1,939 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Swatch Internet Time Embeddable Clocks</title>
+        <!-- Bootstrap 5.3.8 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <!-- Bootstrap Icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+        <!-- Swatch Clocks (CDN pinned to published version) -->
+        <link href="https://cdn.jsdelivr.net/npm/@swatchtime/clocks@0.9.4/dist/clocks.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/@swatchtime/clocks@0.9.4/dist/clocks.min.js"></script>
+        <!-- Demo specific styles -->
+        <link href="clockdemo.css" rel="stylesheet">
+    </head>
+    <body>
+
+        <!-- main element -->
+        <main id="app" class="container my-5"></main>
+
+        <!-- home template -->
+        <template id="home-view">
+            <h1>Swatch Internet Time Embeddable Clocks</h1>
+            <p class="mt-5">These are small embeddable clocks that you can use to display Swatch Internet Time on your own web site.</p>
+            <!-- header row -->
+            <header class="row mt-5 align-items-center bg-secondary-subtle">
+                <div class="col-3 col-lg-2 p-2 fw-bold fs-5">
+                    Name
+                </div>
+                <div class="col-4 col-lg-3 p-2 fw-bold fs-5">
+                    Preview
+                </div>
+                <div class="col-4 col-lg-5 p-2 fw-bold fs-5">
+                    Actions
+                </div>
+                <div class="col-1 col-lg-2 p-2 fw-bold fs-5 d-flex align-items-center justify-content-end">
+                    Help
+                    <button class="btn btn-sm btn-outline-dark border border-1 border-dark rounded-circle ms-2" data-bs-toggle="modal" data-bs-target="#showHelpModal" title="Show Help"><i class="bi bi-question-lg"></i></button>
+                </div>
+            </header>
+            <!-- row 1 -->
+            <div class="row mt-3 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Minimal Plain Small
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 1 -->
+                    <div class="internetTime" data-style="minimal-plain-small"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="minimal-plain-small"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="minimal-plain-small"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr>     
+            <!-- row 2 -->
+            <div class="row mt-3 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Minimal Logo Small
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 2 -->
+                    <div class="internetTime" data-style="minimal-logo-small"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="minimal-logo-small"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="minimal-logo-small"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr>   
+            <!-- row 3 -->
+            <div class="row mt-3 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Minimal Logo Small w/ Centibeats
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 3 -->
+                    <div class="internetTime" data-style="minimal-logo-small-centibeats"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="minimal-logo-small-centibeats"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="minimal-logo-small-centibeats"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr>  
+            <!-- row 4 -->
+            <div class="row mt-3 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Mimimal Plain Medium
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 4 -->
+                    <div class="internetTime" data-style="minimal-plain-medium"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="minimal-plain-medium"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="minimal-plain-medium"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr>  
+            <!-- row 5 -->
+            <div class="row mt-3 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Mimimal Logo Medium
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 5 -->
+                    <div class="internetTime" data-style="minimal-logo-medium"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="minimal-logo-medium"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="minimal-logo-medium"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr>
+            <!-- row 6 -->
+            <div class="row mt-3 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Rectangle Small
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 6 -->
+                    <div class="internetTime" data-style="rectangle-small"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="rectangle-small"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="rectangle-small"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr>
+            <!-- row 7 -->
+            <div class="row mt-3 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Rectangle Small Rounded
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 7 -->
+                    <div class="internetTime" data-style="rectangle-small-rounded"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="rectangle-small-rounded"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="rectangle-small-rounded"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr> 
+            <!-- row 8 -->
+            <div class="row mt-3 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Rectangle Small Dark
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 8 -->
+                    <div class="internetTime" data-style="rectangle-small-dark"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="rectangle-small-dark"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="rectangle-small-dark"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr>              
+            <!-- row 9 -->
+            <div class="row mt-1 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Rectangle Medium
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 9 -->
+                    <div class="internetTime" data-style="rectangle-medium"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="rectangle-medium"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="rectangle-medium"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr>
+            <!-- row 10 -->
+            <div class="row mt-1 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Rectangle Medium Rounded
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 10 -->
+                    <div class="internetTime" data-style="rectangle-medium-rounded"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="rectangle-medium-rounded"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="rectangle-medium-rounded"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr>
+            <!-- row 11 -->
+            <div class="row mt-3 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Rectangle Medium Dark
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 11 -->
+                    <div class="internetTime" data-style="rectangle-medium-dark"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="rectangle-medium-dark"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="rectangle-medium-dark"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr>              
+            <!-- row 12 -->
+            <div class="row mt-1 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Rectangle Large
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 12 -->
+                    <div class="internetTime" data-style="rectangle-large"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="rectangle-large"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="rectangle-large"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>            
+            <hr>
+            <!-- row 13 -->
+            <div class="row mt-3 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Rectangle Large Rounded
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 13 -->
+                    <div class="internetTime" data-style="rectangle-large-rounded"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="rectangle-large-rounded"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="rectangle-large-rounded"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr>
+            <!-- row 14 -->
+            <div class="row mt-3 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Rectangle Large Dark
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 14 -->
+                    <div class="internetTime" data-style="rectangle-large-dark"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="rectangle-large-dark"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="rectangle-large-dark"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr>
+            <!-- row 15 -->
+            <div class="row mt-1 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Pill-Shaped Small
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 15 --Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate.</p>
+                        <p>Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate.>
+                    <div class="internetTime" data-style="pill-small"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="pill-small"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="pill-small"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>    
+            <hr>
+            <!-- row 16 -->
+            <div class="row mt-1 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Pill-Shaped Small Dark
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 15 -->
+                    <div class="internetTime" data-style="pill-small-dark"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="pill-small-dark"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="pill-small-dark"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>    
+            <hr>
+            <!-- row 17 -->
+            <div class="row mt-1 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Pill-Shaped Medium
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 17 -->
+                    <div class="internetTime" data-style="pill-medium"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="pill-medium"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="pill-medium"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div> 
+            <hr>
+            <!-- row 18 -->
+            <div class="row mt-1 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Pill-Shaped Medium Dark
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 17 -->
+                    <div class="internetTime" data-style="pill-medium-dark"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="pill-medium-dark"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="pill-medium-dark"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div> 
+            <hr>
+            <!-- row 19 -->
+            <div class="row mt-1 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Pill-Shaped Large
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 19 -->
+                    <div class="internetTime" data-style="pill-large"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="pill-large"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="pill-large"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div> 
+            <hr>              
+            <!-- row 20 -->
+            <div class="row mt-1 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Pill-Shaped Large
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 20 -->
+                    <div class="internetTime" data-style="pill-large-dark"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="pill-large-dark"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="pill-large-dark"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div> 
+            <hr>  
+            <!-- row 21 -->
+            <div class="row mt-1 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Square Small
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 21 -->
+                    <div class="internetTime" data-style="square-small"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="square-small"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="square-small"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>  
+            <hr>
+            <!-- row 22 -->
+            <div class="row mt-3 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Square Small Rounded
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 22 -->
+                    <div class="internetTime" data-style="square-small-rounded"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="square-small-rounded"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="square-small-rounded"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr>
+            <!-- row 23 -->
+            <div class="row mt-3 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Square Medium
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 23 -->
+                    <div class="internetTime" data-style="square-medium"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="square-medium"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="square-medium"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>            
+            <hr>              
+            <!-- row 24 -->
+            <div class="row mt-1 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Square Medium Rounded
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 24 -->
+                    <div class="internetTime" data-style="square-medium-rounded"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="square-medium-rounded"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="square-medium-rounded"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr>
+            <!-- row 25 -->
+            <div class="row mt-1 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Square Large
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 25 -->
+                    <div class="internetTime" data-style="square-large"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="square-large"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="square-large"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>  
+            <hr>
+            <!-- row 26 -->
+            <div class="row mt-3 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Square Large Rounded
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 26 -->
+                    <div class="internetTime" data-style="square-large-rounded"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="square-large-rounded"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="square-large-rounded"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>
+            <hr>              
+            <!-- row 27 -->
+            <div class="row mt-1 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Circle Small
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 27 -->
+                    <div class="internetTime" data-style="circle-small"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="circle-small"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="circle-small"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>  
+            <hr>
+            <!-- row 28 -->
+            <div class="row mt-1 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Circle Medium
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 28 -->
+                    <div class="internetTime" data-style="circle-medium"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="circle-medium"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="circle-medium"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>  
+            <hr>
+            <!-- row 29 -->
+            <div class="row mt-1 align-items-center">
+                <div class="col-3 col-lg-2 p-2">
+                    Circle Large
+                </div>
+                <div class="col-4 col-lg-3 p-2">
+                    <!-- Preset Clock 29 -->
+                    <div class="internetTime" data-style="circle-large"></div>
+                </div>
+                <div class="col-5 col-lg-7 p-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-get-code me-1" data-style="circle-large"><i class="bi bi-code me-1"></i>Get Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-customize" data-style="circle-large"><i class="bi bi-sliders me-1"></i>Customize</button>
+                </div>
+            </div>  
+            <hr>
+
+            <br><br>
+
+        </template>
+
+        <!-- code template -->
+        <template id="code-view">
+
+            <!-- home button -->
+            <button type="button" class="btn btn-primary me-2 btn-home" title="Return to the home page">
+                <i class="bi bi-house-fill me-1"></i>Home
+            </button>
+
+            <h1 class="my-4">Embed Code</h1>
+
+            <!-- preview clock -->
+            <div class="border border-1 border-secondary-subtle d-flex justify-content-start align-items-center p-3"> 
+                <span id="preview-label" class="text-secondary text-muted opacity-50 me-3">Clock Preview:</span>
+                <div id="code-preview" aria-hidden="true"></div>
+            </div>
+
+            <!-- copy/paste code -->
+            <div class="row mt-4">
+                <div class="col-12 col-lg-10 mx-auto code-container">
+
+                    <label for="clockcode" class="visually-hidden">Embed snippet</label>
+                    <textarea id="clockcode" class="code-textarea short">&lt;div class="internetTime" data-style="rectangle-small"&gt;&lt;/div&gt;</textarea>
+                    
+                    <div class="mt-2 mb-5 d-flex justify-content-center">
+                        <button type="button" id="copybtn" class="btn btn-lg btn-outline-primary me-2" title="Copy this code to the clipboard">Copy Code</button>
+                    </div>
+
+                    <p class="mt-5">Also be sure to add the Javascript and CSS links to the <code>&lt;head&gt;</code> section of your HTML document:</p>
+
+                    <label for="librarycode" class="visually-hidden">Full HTML document</label>
+                    <textarea id="librarycode" class="code-textarea long"></textarea>
+
+                    <div class="text-center mt-3 d-flex justify-content-center gap-2">
+                        <button type="button" class="btn btn-success mb-4" onclick="loadTemplateWithHistory('home')" title="Return to the home page">Return Home</button>
+                        <button type="button" id="savehtmlbtn" class="btn btn-outline-secondary mb-4" title="Save this code as an HTML page">Save as HTML</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </template>
+
+        <!-- custom template -->
+        <template id="custom-view">
+        <form>
+
+            <!-- home button -->
+            <button type="button" class="btn btn-primary me-2 btn-home">
+                <i class="bi bi-house-fill me-1"></i>Home
+            </button>
+
+            <h1 class="my-4">Customize Your Clock</h1>
+
+            <!-- preview clock -->
+            <div class="border border-1 border-secondary-subtle rounded-4 d-flex justify-content-start align-items-center p-3"> 
+                <span id="preview-label" class="text-secondary text-muted opacity-50 me-3">Clock Preview:</span>
+                <div id="preview" aria-hidden="true"></div>
+            </div>
+
+            <!-- preview options -->
+            <div class="ms-3 mt-4 mb-2 d-flex align-items-center">
+                <input type="checkbox" id="auto-fit" class="me-2"> Auto-fit width
+                <button type="button" class="btn btn-link p-0 text-primary ms-2" data-bs-toggle="modal" data-bs-target="#autofitModal" title="More info" aria-label="More info">
+                    <i class="bi bi-question-circle-fill"></i>
+                </button>
+            </div>
+            
+            <hr>
+
+            <!-- clock and frame parameter controls (bootstrap accordion menu)-->
+            <div class="accordion" id="accordionControls">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button text-primary fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#clockOptions" aria-expanded="true" aria-controls="clockOptions">
+                            Clock Options
+                        </button>
+                    </h2>
+                    <div id="clockOptions" class="accordion-collapse collapse show" data-bs-parent="#accordionControls">
+                        <div class="accordion-body">
+
+                            <!-- checkboxes -->
+                            <div class="mb-2"><input type="checkbox" id="show-logo"> Show logo</div>
+                            <div class="mb-2"><input type="checkbox" id="hide-centibeats"> Hide centibeats</div>
+                            <div class="mb-2"><input type="checkbox" id="hide-at"> Hide @ sign</div>
+                            <div class="mb-2"><input type="checkbox" id="add-beats"> Add the word 'beats' after Swatch Internet Time</div>
+
+                            <!-- margin between elements -->
+                            <div class="my-3 control-at-sign-margin">Margin between logo and @ sign: <input id="at-sign-margin" type="number" class="ms-1 small-input" value="0" min="0" max="100"> pixels</div>
+                            <div class="my-3 control-beats-label-margin">Margin between beats label and time: <input id="beats-label-margin" type="number" class="ms-1 small-input" value="6" min="0"> pixels</div>
+                            
+                            <!-- transparent checkbox -->
+                            <div class="mb-2"><input type="checkbox" id="transparent-bg"> Transparent background color</div>
+
+                            <!-- background color -->
+                            <div class="d-flex align-items-center my-3">
+                                <div class="me-2"><label for="clock-bgcolor">Clock background color:</label></div>
+                                <div><input id="clock-bgcolor" type="color" value="#778899"></div>
+                            </div>
+
+                            <!-- font size -->
+                            <div class="d-flex align-items-center my-3">
+                                <div class="me-4"><label for="fsval">Clock font size:</label></div>
+                                <div>
+                                    <input type="range" id="fontsize" value="11" min="10" max="100"> 
+                                    <input id="fsval" type="number" value="11" class="small-input">
+                                </div>
+                            </div>
+
+                            <!-- font color -->
+                            <div class="d-flex align-items-center mt-3 mb-4">
+                                <div class="me-2"><label for="clock-font-color">Clock font color:</label></div>
+                                <div><input id="clock-font-color" type="color" value="#FFFFFF"></div>
+                            </div>    
+
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button text-primary fw-bold fs-5 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#frameOptions" aria-expanded="false" aria-controls="frameOptions">
+                            Frame Options
+                        </button>
+                    </h2>
+                    <div id="frameOptions" class="accordion-collapse collapse" data-bs-parent="#accordionControls">
+                        <div class="accordion-body">
+
+                            <!-- frame width -->
+                            <div class="d-flex align-items-center my-3">
+                                <div class="me-4"><label for="widthval">Frame width:</label></div>
+                                <div>
+                                    <input type="range" id="width" value="95" min="50" max="800">
+                                    <input id="widthval" type="number" value="95" min="50" class="small-input"> 
+                                </div>
+                            </div>
+
+                            <!-- frame height -->
+                            <div class="d-flex align-items-center my-3">
+                                <div class="me-4"><label for="heightval">Frame height:</label></div>
+                                <div>
+                                    <input type="range" id="height" value="30" min="10" max="300">
+                                    <input id="heightval" type="number" value="30" min="10" class="small-input"> 
+                                </div>
+                            </div>
+
+                            <!-- hide frame border -->
+                            <div class="my-4">
+                                <input type="checkbox" id="hide-frame"> Hide frame border
+                            </div>
+
+                            <!-- frame border width -->
+                            <div class="d-flex align-items-center my-2">
+                                <div class="me-3">Frame border width:</div>
+                                <div>
+                                    <input id="frame-border-width" type="number" value="1" min="0" max="5" class="small-input">
+                                </div>
+                            </div>
+
+                            <!-- frame border color -->
+                            <div class="d-flex flex-row align-items-center my-3">
+                                <div class="me-2"><label for="frame-border-color">Frame border color:</label></div>
+                                <div><input type="color" id="frame-border-color" value="#000000"></div>
+                            </div>
+
+                            <!-- frame padding (four-value and single-value variants) -->
+                            <div class="d-flex flex-row align-items-center my-4 control-padding-four">
+                                <div class="me-2">Frame padding:</div>
+                                <div class="text-center">
+                                    <label for="pad-top" class="text-secondary text-muted opacity-50 mx-2">Top</label>
+                                    <input id="pad-top" type="number" value="4" min="0" class="tiny-input">
+                                </div>
+                                <div class="text-center">
+                                    <label for="pad-right" class="text-secondary text-muted opacity-50 mx-2">Right</label>
+                                    <input id="pad-right" type="number" value="6" min="0" class="tiny-input">
+                                </div>
+                                <div class="text-center">
+                                    <label for="pad-bottom" class="text-secondary text-muted opacity-50 mx-2">Bottom</label>
+                                    <input id="pad-bottom" type="number" value="4" min="0" class="tiny-input">
+                                </div>
+                                <div class="text-center">
+                                    <label for="pad-left" class="text-secondary text-muted opacity-50 mx-2">Left</label>
+                                    <input id="pad-left" type="number" value="6" min="0" class="tiny-input">
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row align-items-center my-4 control-padding-single d-none">
+                                <div class="me-2">Frame padding:</div>
+                                <div class="text-center">
+                                    <input id="pad-all" type="number" value="4" min="0" class="tiny-input"> 
+                                </div>
+                            </div>
+
+                            <!-- border radius -->
+                            <div class="d-flex flex-row align-items-center my-3 control-border-radius">
+                                <div class="me-3"><label for="border-radius">Border radius:</label></div>
+                                <div>
+                                    <select id="border-radius" class="form-select form-select-sm select-medium">
+                                        <option value="none">None</option>
+                                        <option value="rounded-1">Rounded-1</option>
+                                        <option value="rounded-2">Rounded-2</option>
+                                        <option value="rounded-3">Rounded-3</option>
+                                        <option value="rounded-4">Rounded-4</option>
+                                        <option value="full">Full</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            
+            <!-- buttons -->
+            <div class="mt-4 mb-5">
+                <button type="button" class="btn btn-primary me-2" title="Return to the home page" onclick="loadTemplateWithHistory('home')"><i class="bi bi-house-fill me-1"></i>Home</button>
+                <button type="button" class="btn btn-secondary me-2 btn-cancel" title="Cancel your current design"><i class="bi bi-x-circle me-1"></i>Cancel</button>
+                <button type="button" class="btn btn-danger me-2 btn-reset" title="Reset the clock style back to default settings"><i class="bi bi-arrow-clockwise me-1"></i>Reset to Default</button>
+                <button type="button" class="btn btn-success btn-get-code-custom" title="Get the embed code for your current design"><i class="bi bi-code me-1"></i>Get Code</button>                
+            </div>
+
+        </form>
+        </template>        
+
+        <!-- help modal -->
+        <div class="modal fade" id="showHelpModal" tabindex="-1" aria-labelledby="showHelpModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-3" id="showHelpModalLabel">Embeddable Clocks Help</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <p class="my-3">Swatch Internet Time embeddable clocks are small javascript clocks that you can embed in your own web pages to display the current time in beats. There are a variety of styles and you can customize the designs to match your site exactly.</p> 
+
+                        <img src="help-preview-clock.png" alt="Embeddable Clock Preview" title="Embeddable Clock Preview" width="108">
+
+                        <h3 class="mt-4">Using Preset Clocks</h3>
+                        <p>When you first come to the demo site you will see a list of names and see a variety of clock styles. These are preset clocks that have already been created for you. Just pick a design and click the "Get Code" button. You will be taken to a page where you can copy and paste some simple HTML code to insert into your web site to display that clock style. With the preset clock designs you don't have to mess around with settings or configure anything.</p>
+                        <p>You can also use the preset clock designs as part of more complex designs that you create. The minimal plain clocks just show numbers. You could insert the Swatch Internet Time into a clock frame or design of your own creation. You focus on creating the graphics and layout and let the embeddable clock keep track of updating the Swatch beats for you automatically.</p>
+
+                        <h3>Customizing Your Clock</h3>
+                        <figure class="figure float-end m-3 p-1 border border-2 border-dark">
+                            <figcaption class="figure-caption text-center">Clock Customization Options:</figcaption>
+                            <img src="help-customize.png" alt="Customization Options" title="Customization Options" width="280">
+                        </figure>
+                        <p>If you want to customize one of the existing preset clock designs to better match your web site just click the "Customize" button. This will take you to a page where you can tweak the parameters of the preset design. You can change things like: colors, font size, frame borders, margins, padding, logos, clock components, and more! While you're adjusting the settings, you'll see a live preview of the clock design you're creating. For perfect blending with your own site you can set the background color or change the background to be transparent. You can also turn the clock frame border on or off and adjust the border thickeness and color.</p>
+                        <p>If you want to start over, you can click the "Reset to Default" button and your clock will be set back to the default style. When you are finished adjusting your design you can click the "Get Code" button to get the HTML code to insert into your web site to display your custom clock style.</p>
+
+                        <h3>Getting Embed Code</h3>
+                        <p>On both the home page and the customize page you'll see a button labeled "Get Code". Clicking this button will take you to a page which shows you some HTML code. You can copy this code to your clipboard using the "Copy Code" button. Then, paste the code into your HTML document where you want your Swatch Internet Time clock to appear. The embed code will look something like this: <span class="text-nowrap"><code>&lt;div class="internetTime" data-style="rectangle-small"&gt;&lt;/div&gt;</code></span></p>
+
+                        <h3>Adding Javascript and CSS Links</h3>
+                        <p>In order for the embeddable clock to work properly, you have to load the library in the <code>&lt;head&gt;</code> section of your HTML document. When you go to the Get Code page you'll see the code you need to insert into your document. This is the code which loads the library and the styles for the clocks. Without this code, your clock embed code will not look or work properly. There are two lines that you need to insert: a javascript file (.js) and a stylesheet file (.css). The easiest way to include this code is to use the <a href="https://www.cloudflare.com/learning/cdn/what-is-a-cdn/" target="_blank" rel="noopener noreferrer">CDN</a> links. These load the files from an external service and make the library and styles available without having to download anything. If you prefer, you can also download the clocks library and upload the files to your own server. Using this method you can have a local installation which does not rely on an external CDN provider. The links to the CDN will look something like this:</p>
+                        <p id="help-cdn-snippet"></p>
+                        
+                        <h3>Creating Your Own Custom Clock Styles</h3>
+                        <p>You can also create your own custom clock styles by passing custom data-* attributes tags to the clocks library. Here is a list of all the custom data-* attributes that the library accepts, what they do, their types and typical defaults. If you want to customize an existing style you can set the data-style attribute to the name of the style and then include the data-* attribute tags of the parameters you want to override.</p>
+
+                        <div class="ps-4 pt-3">
+                            <p>
+                                <b>data-style</b><br>
+                                Example: <code>&lt;div class="internetTime" data-style="rectangle-small"&gt;&lt;/div&gt;</code><br>
+                                Type: string<br>
+                                Description: The preset style name (e.g. 'rectangle-small', 'minimal-logo-medium') or 'custom' to indicate a fully-specified custom configuration. When present and equal to a known preset name, the library will apply the matching preset defaults before applying overrides.
+                            </p>
+                            <hr>
+                            <p>
+                                <b>data-width</b><br>
+                                Example: <code>data-width="95"</code><br>
+                                Type: integer (pixels)<br>
+                                Default: preset default, typically between 40 and 145.<br>
+                                Description: Frame width in pixels.
+                            </p>
+                            <hr>
+                            <p>
+                                <b>data-height</b><br>
+                                Example: <code>data-height="30"</code><br>
+                                Type: integer (pixels)<br>
+                                Default: preset default.<br>
+                                Description: Frame height in pixels.
+                            </p>
+                            <hr>
+                            <p>
+                                <b>data-bg-color</b><br>
+                                Example: <code>data-bg-color="#000000"</code><br>
+                                Type: CSS color string or 'transparent'<br>
+                                Default: preset default (e.g. '#FFFFFF' or 'transparent' for some minimal presets)<br>
+                                Description: Background color for the clock frame.
+                            </p>
+                            <hr>
+                            <p>
+                                <b>data-font-color</b><br>
+                                Example: <code>data-font-color="#FFFFFF"</code><br>
+                                Type: CSS color string<br>
+                                Default: preset default (usually '#000000' or '#FFFFFF')<br>
+                                Description: Color used for the numeric time and text in the clock.
+                            </p>
+                            <hr>
+                            <p>
+                                <b>data-font-size</b><br>
+                                Example: <code>data-font-size="16"</code><br>
+                                Type: integer (px)<br>
+                                Default: preset default (library presets vary)<br>
+                                Description: Base font size used to render the time. Larger values will often increase padding or influence Auto‑fit sizing in the demo.
+                            </p>
+                            <hr>
+                            <p>
+                                <b>data-border-style</b><br>
+                                Example: <code>data-border-style="pill"</code><br>
+                                Type: string<br>
+                                Values: commonly 'rectangle', 'pill', 'circle', 'square' (depends on preset definitions)<br>
+                                Default: preset default<br>
+                                Description: Controls the frame shape and how internal layout is handled.
+                            </p>
+                            <hr>
+                            <p>
+                                <b>data-border-width</b><br>
+                                Example: <code>data-border-width="1"</code><br>
+                                Type: integer (px)<br>
+                                Default: preset normalized or library default<br>
+                                Description: Frame border thickness in pixels.<br>
+                                Notes: The library clamps this value to the 0..5 range to avoid extreme borders that would break small embeds.
+                            </p>
+                            <hr>
+                            <p>
+                                <b>data-frame-border-radius</b><br>
+                                Example: <code>data-frame-border-radius="rounded-2"</code><br>
+                                Type: keyword or CSS length (e.g. 'none', 'rounded-1', '12px', 'full', '50%' for circle)<br>
+                                Default: preset computed value (the library maps tokens like 'rounded-2' to pixel values)<br>
+                                Description: Controls the corner rounding of the frame.
+                            </p>
+                            <hr>       
+                            <p>
+                                <b>data-frame-border-color</b><br>
+                                Example: <code>data-frame-border-color="#000000"</code><br>
+                                Type: CSS color<br>
+                                Default: preset default<br>
+                                Description: Color used for the frame border.
+
+                            </p>
+                            <hr>  
+                            <p>
+                                <b>data-frame-show-border</b><br>
+                                Example: <code>data-frame-show-border="false"</code><br>
+                                Type: boolean string: "true" / "false"<br>
+                                Default: inferred by preset normalization<br>
+                                Description: Explicit flag to show or hide the frame border. When present, this value is treated as authoritative for visibility.<br>
+                                Alias: the library also accepts <code>data-show-border</code> as a shorthand alias for the same semantic.
+                            </p>
+                            <hr> 
+                            <p>
+                                <b>data-frame-padding</b><br>
+                                Example: <code>data-frame-padding="4px 6px"</code><br>
+                                Type: CSS-like padding string (e.g. "4px 6px" or "4px 6px 4px 10px" or a single value like "5px")<br>
+                                Default: preset default or computed padding based on font-size<br>
+                                Description: Frame padding; accepts single or multiple values. The demo accepts numeric padding controls and converts them to 'px' values when generating output.
+                            </p>
+                            <hr> 
+                            <p>
+                                <b>data-clock-at-sign-left-margin</b><br>
+                                Example: <code>data-clock-at-sign-left-margin="2"</code><br>
+                                Type: integer (px)<br>
+                                Default: preset default (often 0-2)<br>
+                                Description: Left margin applied to the @ sign, used to tweak spacing between logo/@ sign/time.
+                            </p>
+                            <hr> 
+                            <p>
+                                <b>data-clock-beats-label-left-margin</b><br>
+                                Example: <code>data-clock-beats-label-left-margin="6"</code><br>
+                                Type: integer (px)<br>
+                                Default: preset default<br>
+                                Description: Left margin for the 'beats' label; useful for fine tuning spacing.
+                            </p>
+                            <hr>      
+                            <p>
+                                <b>data-show-logo</b><br>
+                                Example: <code>data-show-logo="true"</code><br>
+                                Type: boolean string<br>
+                                Default: preset default<br>
+                                Description: Whether to render the small Swiss flag/logo before the time.
+                            </p>
+                            <hr>   
+                            <p>
+                                <b>data-hide-centibeats</b><br>
+                                Example: <code>data-hide-centibeats="true"</code><br>
+                                Type: boolean string<br>
+                                Default: preset default<br>
+                                Description: Controls whether the fractional centibeats (.00) are hidden. The attribute uses the 'hideCentibeats' semantics: <code>data-hide-centibeats="true"</code> removes the centibeats.
+                            </p>
+                            <hr>  
+                            <p>
+                                <b>data-hide-at</b><br>
+                                Example: <code>data-hide-at="true"</code><br>
+                                Type: boolean string<br>
+                                Default: preset default<br>
+                                Description: Hide or show the @ sign before the time.
+                            </p>
+                            <hr>  
+                            <p>
+                                <b>data-add-beats</b><br>
+                                Example: <code>data-add-beats="true"</code><br>
+                                Type: boolean string<br>
+                                Default: preset default<br>
+                                Description: Whether to append the literal word 'beats' after the time.
+                            </p>
+                            <hr>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>   
+
+        <!-- auto-fit width modal-->
+        <div class="modal fade" id="autofitModal" tabindex="-1" aria-labelledby="autofitModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="autofitModalLabel">About Auto-fit width</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <img src="resize.svg" width="90" class="float-end m-2" title="Auto-fit width" />
+
+                        <p><b>Auto‑fit width</b> automatically changes the clock frame dimensions to comfortably fit the visible content — digits, logo, spacing and padding — then updates the live preview and the width/height fields so you see the result immediately. For circular and square frames, it preserves the correct shape by using equal width and height; for other frame styles it picks the best width and height for the current content.</p>
+
+                        <p>When <b>Auto‑fit width</b> is enabled you may not be able to edit the frame width manually, because the demo is keeping the size in sync with the content. Turn this option off to regain full manual control over width, height and padding. When <b>Auto‑fit width</b> is disabled, you are responsible for sizing and spacing to make sure the clock looks right, but you can fine‑tune every value exactly as you want.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- copied toast msg -->
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+            <div id="copiedToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000">
+                <div class="toast-body">
+                    <button type="button" class="btn-close float-end" data-bs-dismiss="toast" aria-label="Close"></button>
+                    <i class="bi bi-check2-circle text-success fw-bold me-2"></i> Code was copied to the clipboard
+                </div>
+            </div>
+        </div>        
+
+        <!-- Bootstrap 5.3.8 -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+       
+        <script src="clockdemo.js"></script>
+
+    </body>
+</html>
