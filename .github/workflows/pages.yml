@@ -1,4 +1,4 @@
-name: Deploy GitHub Pages
+name: Deploy GitHub Pages (gh-pages branch)
 
 on:
   push:
@@ -8,10 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-      contents: read
 
     steps:
       - name: Check out repository
@@ -19,16 +15,15 @@ jobs:
 
       - name: Prepare site directory
         run: |
-          mkdir out
+          mkdir -p out
           rsync -a --exclude='.git' --exclude='.github' --exclude='node_modules' ./ out/
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v3
-
-      - name: Upload artifact for Pages
-        uses: actions/upload-pages-artifact@v1
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: out
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+          publish_dir: ./out
+          publish_branch: gh-pages
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          # uses built-in GITHUB_TOKEN; no extra secrets required
+          github_token: ${{ secrets.GITHUB_TOKEN }}
