@@ -14,7 +14,7 @@ const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
 
 // CDN constants (single source of truth for demo)
-const CLOCKS_CDN_VER = '0.9.3';
+const CLOCKS_CDN_VER = '0.9.4';
 const CLOCKS_CDN_BASE = `https://cdn.jsdelivr.net/npm/@swatchtime/clocks@${CLOCKS_CDN_VER}/dist`;
 const CLOCKS_CSS = `${CLOCKS_CDN_BASE}/clocks.css`;
 const CLOCKS_JS = `${CLOCKS_CDN_BASE}/clocks.js`;
