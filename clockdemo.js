@@ -22,31 +22,10 @@ const CLOCKS_MIN_JS = `${CLOCKS_CDN_BASE}/clocks.min.js`;
 const CLOCKS_UMD_CSS = `${CLOCKS_CDN_BASE}/clocks.umd.css`;
 const CLOCKS_UMD_JS = `${CLOCKS_CDN_BASE}/clocks.umd.js`;
 
-// Load the library and styles from the CDN (tries canonical then fallback)
-(function(){
-  function loadCss(href){
-    var l = document.createElement('link');
-    l.rel = 'stylesheet';
-    l.href = href;
-    l.onerror = function(){
-      if (href.indexOf('clocks.css') !== -1) {
-        loadCss(CLOCKS_UMD_CSS);
-      }
-    };
-    document.head.appendChild(l);
-  }
-  loadCss(CLOCKS_CSS);
-
-  function loadScript(src, fallback){
-    var s = document.createElement('script');
-    s.src = src;
-    s.async = false;
-    s.onerror = function(){ if (fallback) loadScript(fallback); };
-    document.head.appendChild(s);
-  }
-  // Try canonical JS first, then a minified fallback for faster load
-  loadScript(CLOCKS_JS, CLOCKS_MIN_JS);
-})();
+// The demo now expects the canonical CDN tags to be present in the
+// document <head> (static <link> / <script> tags in `index.html`).
+// We keep the CDN constants and HTML generator so the Help modal and
+// the generated "Get Code" snippets use the same version strings.
 
 // Full HTML generator used for the "library code" textarea. We insert
 // the embed snippet passed to this function so users can save the text
