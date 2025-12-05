@@ -3,6 +3,12 @@ name: Deploy GitHub Pages (gh-pages branch)
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'index.html'
+      - 'clockdemo.js'
+      - 'clockdemo.css'
+      - 'vendor/**'
+      - '.github/workflows/pages.yml'
   workflow_dispatch: {}
 
 permissions:
