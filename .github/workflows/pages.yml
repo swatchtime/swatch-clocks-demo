@@ -30,6 +30,19 @@ jobs:
           mkdir -p out
           rsync -a --exclude='.git' --exclude='.github' --exclude='node_modules' ./ out/
 
+      - name: Preserve existing CNAME (if present)
+        run: |
+          set -e
+          # Fetch gh-pages so we can read an existing CNAME if present
+          git fetch origin gh-pages || true
+          # Try to read CNAME from the deployed branch and copy into out/
+          if git show origin/gh-pages:CNAME > /dev/null 2>&1; then
+            git show origin/gh-pages:CNAME > out/CNAME || true
+            echo "CNAME preserved into out/CNAME"
+          else
+            echo "no CNAME found on origin/gh-pages"
+          fi
+
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
