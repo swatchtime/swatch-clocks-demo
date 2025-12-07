@@ -1,9 +1,9 @@
-// ----------------------------------------------------
-// Swatch Internet Time: embeddable clocks 
+// ------------------------------------------------------------------
+// Swatch Internet Time embeddable Javascript clocks (library)
 // Created: 11/28/25 by <ken@kendawson.online>
-// Last updated: 12/5/25
-// Version: 0.9.4
-// ----------------------------------------------------
+// Last updated: 12/6/25
+// Version: 0.9.5
+// ------------------------------------------------------------------
 
 // Swiss flag SVG logo
 const FLAG_SVG = `<?xml version="1.0" encoding="UTF-8"?>
@@ -166,7 +166,7 @@ class Clock {
     const hideCentibeats = !!this.options.hideCentibeats;
     const hideAt = !!this.options.hideAt;
     const addBeats = !!this.options.addBeats;
-    const showLogo = !!this.options.showLogo;
+    !!this.options.showLogo;
 
     const el = this.element;
     if (!el) return;
@@ -1134,24 +1134,27 @@ function buildOptionsForElement(el, norm) {
 // accidentally mutating library state. Consumers should call
 // `getPreset(name)` or `getPresets()`; the internal `presets` object
 // remains private to the library.
-window.getPreset = function getPreset(name) {
+function getPreset(name) {
   const p = presets[name];
   if (!p) return null;
   if (typeof structuredClone === 'function') return structuredClone(p);
   return JSON.parse(JSON.stringify(p));
-};
+}
+window.getPreset = getPreset;
 
-window.getPresets = function getPresets() {
+function getPresets() {
   if (typeof structuredClone === 'function') return structuredClone(presets);
   return JSON.parse(JSON.stringify(presets));
-};
+}
+window.getPresets = getPresets;
 
 // Return a normalized (flat) preset suitable for passing to Clock
-window.getPresetNormalized = function getPresetNormalized(name) {
+function getPresetNormalized(name) {
   try {
     return normalizePreset(name);
   } catch (e) { return null; }
-};
+}
+window.getPresetNormalized = getPresetNormalized;
 
 // -------------------------------------------------
 // Swatch Internet Time functions
@@ -1197,7 +1200,7 @@ document.addEventListener('visibilitychange', () => {
 
 // Add a public initializer so host frameworks and SPAs can initialize
 // dynamically-inserted `.internetTime` elements.
-window.initInternetTime = function initInternetTime(root = document) {
+function initInternetTime(root = document) {
   const container = (root && root.querySelectorAll) ? root : document;
   const inited = [];
   container.querySelectorAll('.internetTime').forEach(el => {
@@ -1215,10 +1218,11 @@ window.initInternetTime = function initInternetTime(root = document) {
     }
   });
   return inited;
-};
+}
+window.initInternetTime = initInternetTime;
 
 // Remove references and optionally remove DOM contents for a root.
-window.destroyInternetTime = function destroyInternetTime(root = document, opts = { removeDom: false }) {
+function destroyInternetTime(root = document, opts = { removeDom: false }) {
   const container = (root && root.querySelectorAll) ? root : document;
   container.querySelectorAll('.internetTime').forEach(el => {
     if (el.clock) {
@@ -1229,11 +1233,12 @@ window.destroyInternetTime = function destroyInternetTime(root = document, opts 
       try { delete el.clock; } catch (e) { el.clock = undefined; }
     }
   });
-};
+}
+window.destroyInternetTime = destroyInternetTime;
 
 // Lazy initializer using IntersectionObserver. Returns the observer so caller
 // can disconnect later. Options: { root, rootMargin, threshold }
-window.initInternetTimeLazy = function initInternetTimeLazy(options = {}) {
+function initInternetTimeLazy(options = {}) {
   const root = options.root || document;
   const rootMargin = options.rootMargin || '200px';
   const threshold = typeof options.threshold !== 'undefined' ? options.threshold : 0.01;
@@ -1257,6 +1262,84 @@ window.initInternetTimeLazy = function initInternetTimeLazy(options = {}) {
     if (!el.clock) observer.observe(el);
   });
   return observer;
-};
+}window.initInternetTimeLazy = initInternetTimeLazy;
 
 startSwatchClock();
+
+// Ensure common runtime symbols are available on `window` for UMD and
+// ESM consumers that expect globals. This keeps backward compatibility
+// with script-tag usage and helps bundlers that read runtime globals.
+try {
+  if (typeof window !== 'undefined') {
+    if (typeof window.Clock === 'undefined') window.Clock = Clock;
+    if (typeof window.buildOptionsForElement === 'undefined') window.buildOptionsForElement = buildOptionsForElement;
+    if (typeof window.presets === 'undefined') window.presets = presets;
+    if (typeof window.normalizePreset === 'undefined') window.normalizePreset = normalizePreset;
+  }
+} catch (e) { /* ignore */ }
+
+class SwatchClockElement extends HTMLElement {
+  connectedCallback() {
+    const style = this.getAttribute('data-style') || this.dataset.style;
+    let preset = null;
+    try {
+      preset = (typeof window !== 'undefined' && typeof window.getPreset === 'function') ? window.getPreset(style) : null;
+    } catch (e) {
+      // ignore
+    }
+
+    const opts = preset && typeof window.buildOptionsForElement === 'function' ? window.buildOptionsForElement(this, preset) : (preset || {});
+
+    if (typeof window.Clock === 'function') {
+      new window.Clock(this, opts);
+    } else {
+      this.textContent = 'SwatchClock: ' + (style || 'unknown');
+    }
+  }
+}
+
+if (typeof customElements !== 'undefined' && !customElements.get('swatch-clock')) {
+  customElements.define('swatch-clock', SwatchClockElement);
+}
+
+// Helper: initialize all `div.internetTime` and `<swatch-clock>` places on the page
+function autoInit(root = document) {
+	if (typeof document === 'undefined') return;
+
+	// legacy containers
+	const legacy = Array.from((root || document).querySelectorAll('.internetTime'));
+	legacy.forEach(el => {
+		try {
+			const style = el.dataset.style;
+			const norm = (typeof getPresetNormalized === 'function') ? getPresetNormalized(style) : (typeof getPreset === 'function' ? getPreset(style) : null);
+			const opts = (typeof buildOptionsForElement === 'function') ? buildOptionsForElement(el, norm) : (norm || {});
+			if (typeof Clock === 'function') new Clock(el, opts);
+		} catch (e) { /* ignore per-element errors */ }
+	});
+
+	// custom elements: <swatch-clock data-style="..."> — webcomponent auto-mounts
+}
+
+// When running in the browser attach a runtime helper object to window and auto-init
+if (typeof window !== 'undefined') {
+	const runtime = { getPreset, getPresets, getPresetNormalized, buildOptionsForElement, Clock, autoInit };
+	// do not overwrite if user set their own SwatchClocks object
+	if (!window.SwatchClocks) window.SwatchClocks = runtime;
+
+	// Respect a global toggle `window.SwatchClocksAutoInit` (default true)
+	try {
+		if (window.SwatchClocksAutoInit !== false) {
+			// run autoInit on DOMContentLoaded (if not already loaded)
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', () => autoInit(document));
+			} else {
+				autoInit(document);
+			}
+		}
+	} catch (e) {
+		// swallow any runtime errors during auto-init
+	}
+}
+
+export { Clock, SwatchClockElement, autoInit, buildOptionsForElement, getPreset, getPresetNormalized, getPresets };
+//# sourceMappingURL=clocks.esm.js.map
